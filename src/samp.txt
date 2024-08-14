@@ -1,0 +1,80 @@
+ const response = await axios.post('https://s32-1zb8.vercel.app/upload', formData, {
+                        headers: {'Content-Type': 'multipart/form-data'}});
+                        console.log('File uploaded successfully:', response.data);      
+ 
+              console.log("docRes", docRes);
+      console.log("type of the docRes is :", docRes.type)
+      const assets = docRes.assets;
+      console.log("assets", assets);
+      console.log("assets[0]", assets[0]);
+      console.log("assets[0] name", assets[0].name);
+
+      if (!assets) {
+        console.log("no assets ")
+        return;
+      }
+      const formData = new FormData();
+      formData.append('file', {
+        uri: assets.uri,
+        name: assets.name,
+        type: assets.mimeType
+      });
+
+      try {
+        const response = await fetch('https://s32-1zb8-fgt4mfpzn-doshi.vercel.app/list', {
+          method: 'GET',
+          headers: {
+            'Accept': '*/*'
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok ' + response.statusText);
+        }
+
+        const data = await response.json();
+        console.log('Response data:', data);
+      }
+      catch (error) {
+        console.log(error);
+      }
+    }
+    catch (error) {
+      console.log("Error while selecting file: ", error);
+    }
+
+
+
+
+
+
+    ----------about earlier pick docRes
+       // let result = await DocumentPicker.getDocumentAsync({});
+      // console.log("result",result);
+      // const assetsArray1 = result.assets[0];
+      // const file ={
+      //   fieldname: 'file',
+      //   originalname:assetsArray1.name,
+      //   encoding: '7bit',
+      //   mimetype:assetsArray1.mimeType
+      // }
+      // console.log("obj file",file);
+      // const formData = new FormData();
+      // //formData.append('file', file);
+      // formData.append('file',JSON.stringify(file));
+      // if(result){
+      //   console.log("inside result ");
+      //   try {
+      //     let response = await fetch('http://localhost:8000/upload', {
+      //       method: 'POST',
+      //       headers:{
+      //           Accept:'application/json',
+      //           'Content-Type':'multipart/form-data',
+      //           authorization:`JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N…xOTh9.XSgtzHVjXdUBzJ0SgWDGPnVE4SVOvKy2hgEHQJeYYGc`
+      //       },
+      //       body: formData,
+           
+      //     });
+      //     let responseJson = await response.json();
+      //     console.log('Success:', responseJson);
+      

@@ -1,0 +1,28 @@
+console.log("index is ",index);
+            // console.log("name is ",name);
+            // let data = await DocumentPicker.getDocumentAsync()
+            // let base64 = await ConvertBase64Format(data)
+            // if (index === 0 || index >= 0) {
+            //     dispatch({ type: UPDATE_PROP_VALUES, payload: { ...base64, name: name, index: index } })
+            // } else if (index === undefined) {
+            //     dispatch({ type: ADD_PROPS_TYPE, payload: { ...base64, name: name } })
+            // }
+            formData.append('image', {
+//                 uri: name.uri,
+//                 name: 'image.jpg',
+//                 type: 'image/jpeg' // Specify the correct MIME type for the image file
+//             });
+//             fetch("http://localhost:8000/upload", {
+//                     method: "POST",
+//                     body: JSON.stringify({
+//                     title: "Hello World",
+//                     body: "My POST request",
+//                     userId: 900,
+//                 }),
+//             headers: {
+//                     "Content-type": "application/json; charset=UTF-8",
+//                  },
+//                 })
+// .then((response) => response.json())
+// .then((json) => console.log(json));
+

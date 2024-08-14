@@ -1,0 +1,92 @@
+// const handleDelete = (index, name) => {
+    //     console.log("Inside handle DElete function and printing value of index ",index);
+    //     if (index >= 0) {
+    //         dispatch({ type: REMOVE_ARRAY_PROPS_TYPE, payload: { index: index, name: name } });
+    //     } else if (index === undefined) {
+    //         dispatch({ type: REMOVE_PROPS_TYPE, payload: { name: name } });
+    //     }
+    // }
+    // const Onchange = async (e, element) => {
+    //     console.log(e);
+    //     console.log("Inside OnChange function and it is called when we input the string ");
+    //     if (element.type === SchemaTypes.file) {
+    //         let data = await blobToBase64(e.target.files[0]) //converts file to string 
+    //         console.log("Inside inchange function and printing data value ",data);
+    //         dispatch({ type: ADD_PROPS_TYPE, payload: { fileName: e.target.files[0]?.name, name: element.name, value: data, ContentType: e.target.files[0]?.type } })
+    //     } else {
+    //         dispatch({ type: ADD_PROPS_TYPE, payload: { name: element.name, value: e } })
+    //     }
+    // }
+
+    // const { isSuccess, isPending, error, mutate } = useMutation({
+    //     mutationFn: async () => await onSubmit(state),
+    //     onSuccess: () => {
+    //         queryClient.invalidateQueries({
+    //             predicate: (query) =>
+    //                 query.queryKey.includes(UPDATE_ON_ACCOUNT)
+    //         })
+    //     },
+
+    // })
+
+    // var stausClass = (isPending || isSuccess) ? {
+    //     position: 'relative', top: '50%', width: '80%', backgroundColor: 'white', padding: 20, borderRadius: 10
+    // } : { backgroundColor: 'white', padding: 20, borderRadius: 10 }
+
+    // console.log(state);// const [state, dispatch] = useReducer(reducer, init);
+    // //state:To manage the state and dispatch to call the reducer function also reducer function is to manage the state
+    // const queryClient = useQueryClient();
+    
+
+
+    //writing it down how the reducer works 
+//its a function which takes old state and action and returns new state
+//genrALLY switch case is used for different state changes and action tells what to do
+//action has payload data can be crud
+const reducer = (state, action) => {
+    console.log("Inside reducer and printing state ",state ,action);
+    var currentState = deepCopyObject(state);
+    if ((action.type === ADD_ARRAY || action.type === UPDATE_PROP_VALUES) && state[action.payload.name]) {
+        currentState[action.payload.name] = [...state[action.payload.name]]
+    }
+    switch (action.type) {
+        case ADD_PROPS_TYPE:
+            console.log("Inside ADD PROPS TYPE")
+            let data = undefined // This variable will be used to store the data that needs to be added to the state.
+            if (action.payload?.ContentType) {
+                console.log("What is the ADD_PROPS_TYPE  ",action.payload,"action.payload?.ContentType",action.payload.ContentType)
+                data = { value: action.payload.value, ContentType: action.payload.ContentType, fileName: action.payload.fileName }
+                console.log("INside reducer and printing and data if value of ",data,value,action.payload.value, ContentType , action.payload.ContentType,fileName, action.payload.fileName)
+            } else {
+                data = action.payload.value;
+                console.log("Inside else of add props and prinintng data ",data,action.payload.value );
+            }
+            currentState[action.payload.name] = data;
+            break;
+        case ADD_ARRAY:
+            console.log("ADD ARRAY")
+            if (!currentState[action.payload.name]) {
+
+                currentState[action.payload.name] = []
+            }
+            currentState[action.payload.name].push({})
+            break;
+        case UPDATE_PROP_VALUES:
+            console.log("INSIDE UPDATE PROP VALUES ")
+            currentState[action.payload.name][action.payload.index] =
+                { value: action.payload.value, ContentType: action.payload.ContentType, fileName: action.payload.fileName };
+            break
+        case REMOVE_ARRAY_PROPS_TYPE:
+            console.log("Inside REMOVE  PROPS TYPE")
+            let indexToRemove = action.payload.index
+            currentState[action.payload.name].splice(indexToRemove, 1);
+            break;
+        case REMOVE_PROPS_TYPE:
+            console.log("Inside REMOVE PROPS PROPS TYPE")
+            delete currentState[action.payload.name];
+            break
+        default:
+    }
+    console.log("Inside reducer function and printing currentState  ",currentState);
+    return currentState;
+};

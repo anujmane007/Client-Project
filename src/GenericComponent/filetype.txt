@@ -1,0 +1,43 @@
+ if (element.type === SchemaTypes.file) {
+        console.log("Inside file picker ")
+        let src = undefined;
+        let title = undefined;
+        if (index >= 0) {
+            console.log("Index value index>=0 ",index);
+            src = value?.value
+            title = value?.fileName
+            ContentType = value?.ContentType
+        }
+        if (index === undefined) {
+            console.log("Index value index undefined ",index);
+
+            console.log("Inside index undefined picker ")
+            src = state[element.name]?.value
+            title = state[element.name]?.fileName
+            ContentType = state[element.name]?.ContentType
+        }
+        return (
+            <View style={dataview.fileContainer}>
+                <View style = {{display:'flex',flexDirection:'row',justifyContent:'space-evenly'}}>
+                    
+                    <TouchableOpacity 
+                                                        style={CommonClass.chooseFile} onPress={async () => await onUpload(index, element)}>
+                                <Text>Choose file</Text>
+                    
+                    </TouchableOpacity>
+                    
+                    <TouchableOpacity
+                                                         style={CommonClass.Editbutton} onPress={() => handleDelete(index, element.name)}>
+                                                        <AntDesign name="delete" size={24} color="white" />
+                        <Text>{element.name} </Text>
+                    
+                    </TouchableOpacity>
+                </View>
+                <ModallImageView
+                    src={src}
+                    ContentType = {ContentType}
+                    title={title}
+                />
+            </View>
+        )
+    }
