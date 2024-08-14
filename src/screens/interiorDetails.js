@@ -87,8 +87,8 @@ const InteriorDetails = ({ route, navigation }) => {
   };
 
   const s3 = new AWS.S3({
-    accessKeyId: "AKIA4MTWOCNFC73A34GV",
-    secretAccessKey: "yiGYGKXk6yF8Runq9lrvKLFY1ZK6P24F65TBgOOv",
+    accessKeyId: "Replace Your Key",
+    secretAccessKey: "Replace Your Key",
     region: "eu-north-1",
     signatureVersion: "v4",
   });
